@@ -1,1 +1,5 @@
-spring.application.name=spring_march_artyom_puhanovskiy
+spring:
+  application:
+    name: CarService
+  profiles:
+    active: config1
