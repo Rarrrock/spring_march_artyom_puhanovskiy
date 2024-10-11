@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Rarrrock
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: model
+                  type: VARCHAR(255)
+              - column:
+                  name: engine_power
+                  type: INT
+  - changeSet:
+      id: 2
+      author: Rarrrock
+      changes:
+        - addColumn:
+            tableName: car
+            columns:
+              - column:
+                  name: torque
+                  type: INT

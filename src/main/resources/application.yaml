@@ -1,5 +1,45 @@
 spring:
   application:
-    name: CarService
+    name: spring_hwww_test
   profiles:
     active: config1
+  datasource:
+    url: jdbc:mysql://localhost:3306/car_service
+    username: root
+    password: rootroot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      hibernate:
+        ddl-auto: none
+      show-sql: true
+      database-platform: org.hibernate.dialect.MySQLDialect
+
+#ref-data:
+#  engine-types:
+#    - Бензиновий
+#    - Дизельний
+#    - Гібридний
+#
+#  fuel-types:
+#    бензин:
+#      - А-95
+#      - А-98
+#      - А-100
+#    дизель:
+#      - зимовий
+#      - літній
+#      - арктичний
+#    електрика: []
+
+#    datasource:
+#      url: "jdbc:postgresql://localhost:5432/XXX"
+#      username: "postgres"
+#      password: "postgres"
+#    jpa:
+#      show-sql: true
+#      hibernate:
+#        ddl-auto: update
+#        format-sql: true
+#      properties:
+#          hibernate:
+#              format_sql: true

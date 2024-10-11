@@ -1,6 +1,5 @@
 ref-data:
   engine-types: Бензиновий, Дизельний, Гібридний
-
   fuel-types:
     бензин:
       - А-95
