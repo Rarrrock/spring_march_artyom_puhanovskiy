@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.config_properties;
+package com.hw.spring_hw_ap.config_properties_1;
 
 import lombok.Data;
 

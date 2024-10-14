@@ -1,7 +1,7 @@
-package com.hw.spring_hw_ap.controller;
+package com.hw.spring_hw_ap.controller_1;
 
-import com.hw.spring_hw_ap.models.Car;
-import com.hw.spring_hw_ap.service.CarService;
+import com.hw.spring_hw_ap.dto_3.CarDto;
+import com.hw.spring_hw_ap.service_2.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,29 +15,29 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping("/search")
-    public List<Car> searchCars(@RequestParam int minEnginePower, @RequestParam int maxEnginePower) {
+    public List<CarDto> searchCars(@RequestParam int minEnginePower, @RequestParam int maxEnginePower) {
         return carService.findByEnginePowerBetween(minEnginePower, maxEnginePower);
     }
 
     @GetMapping
-    public List<Car> getAllCars() {
+    public List<CarDto> getAllCars() {
         return carService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Car getCarById(@PathVariable Long id) {
+    public CarDto getCarById(@PathVariable Long id) {
         return carService.findById(id);
     }
 
     @PostMapping
-    public Car createCar(@RequestBody Car car) {
-        return carService.save(car);
+    public CarDto createCar(@RequestBody CarDto carDto) {
+        return carService.save(carDto);
     }
 
     @PutMapping("/{id}")
-    public Car updateCar(@PathVariable Long id, @RequestBody Car car) {
-        car.setId(id);
-        return carService.save(car);
+    public CarDto updateCar(@PathVariable Long id, @RequestBody CarDto carDto) {
+        carDto.setId(id);
+        return carService.save(carDto);
     }
 
     @DeleteMapping("/{id}")

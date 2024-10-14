@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.models;
+package com.hw.spring_hw_ap.models_2;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,4 +19,6 @@ public class Car {
     private int enginePower;
 
     private int torque;
+
+    private String fuelType;
 }
