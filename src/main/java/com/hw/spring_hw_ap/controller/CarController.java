@@ -1,7 +1,7 @@
-package com.hw.spring_hw_ap.controller_1;
+package com.hw.spring_hw_ap.controller;
 
-import com.hw.spring_hw_ap.dto_3.CarDto;
-import com.hw.spring_hw_ap.service_2.CarService;
+import com.hw.spring_hw_ap.dto.CarDto;
+import com.hw.spring_hw_ap.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

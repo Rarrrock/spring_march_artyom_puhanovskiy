@@ -1,9 +1,11 @@
-package com.hw.spring_hw_ap.dto_3;
+package com.hw.spring_hw_ap.dto;
 
-import com.hw.spring_hw_ap.validation_3.ValidFuelType;
+import com.hw.spring_hw_ap.validation.ValidFuelType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class CarDto {
@@ -22,4 +24,9 @@ public class CarDto {
     @NotBlank(message = "Fuel type cannot be blank")
     @ValidFuelType
     private String fuelType;
+
+    @NotBlank(message = "Owner username cannot be blank")
+    private String ownerUsername;
+
+    private LocalDateTime lastMaintenanceTimestamp;
 }

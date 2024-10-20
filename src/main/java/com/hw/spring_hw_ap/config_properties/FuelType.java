@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.config_properties_1;
+package com.hw.spring_hw_ap.config_properties;
 
 import lombok.Data;
 
@@ -16,3 +16,4 @@ public class FuelType {
         this.variants = variants;
     }
 }
+

@@ -3,16 +3,40 @@ spring:
     name: spring_hwww_test
   profiles:
     active: config1
+
+  # Конфигурация для MySQL
   datasource:
     url: jdbc:mysql://localhost:3306/car_service
     username: root
     password: rootroot
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #      ОБЯЗАТЕЛЬНО прописывай "ddl-auto: update",
+    #      ЕСЛИ не хочешь создавать таблицы вручную в MYsql
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: none
-      show-sql: true
-      database-platform: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+  # Конфигурация для MongoDB
+  data:
+    mongodb:
+      uri: mongodb+srv://root:rootroot@cluster0.wy5rblw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: products-db
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail-sender}
+    password: "bfvrgqdtmzmrpjip"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 #ref-data:
 #  engine-types:

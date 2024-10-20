@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.validation_3;
+package com.hw.spring_hw_ap.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

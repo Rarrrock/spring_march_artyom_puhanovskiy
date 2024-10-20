@@ -1,7 +1,7 @@
-package com.hw.spring_hw_ap.controller_1;
+package com.hw.spring_hw_ap.controller;
 
-import com.hw.spring_hw_ap.config_properties_1.FuelType;
-import com.hw.spring_hw_ap.config_properties_1.ReferenceDataProperties;
+import com.hw.spring_hw_ap.config_properties.FuelType;
+import com.hw.spring_hw_ap.config_properties.ReferenceDataProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

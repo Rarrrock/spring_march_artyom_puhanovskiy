@@ -1,6 +1,6 @@
-package com.hw.spring_hw_ap.validation_3;
+package com.hw.spring_hw_ap.validation;
 
-import com.hw.spring_hw_ap.config_properties_1.ReferenceDataProperties;
+import com.hw.spring_hw_ap.config_properties.ReferenceDataProperties;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class FuelTypeValidator implements ConstraintValidator<ValidFuelType, String> {
 
-    private final ReferenceDataProperties referenceDataProperties1;
+    private final ReferenceDataProperties referenceDataProperties;
 
     @Override
     public boolean isValid(String fuelType, ConstraintValidatorContext context) {
@@ -18,7 +18,7 @@ public class FuelTypeValidator implements ConstraintValidator<ValidFuelType, Str
             return false;
         }
 
-        return referenceDataProperties1.getFuelTypes().containsKey(fuelType);
+        return referenceDataProperties.getFuelTypes().containsKey(fuelType);
     }
 }
 
