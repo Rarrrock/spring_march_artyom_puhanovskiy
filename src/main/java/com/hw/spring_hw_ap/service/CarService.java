@@ -2,10 +2,10 @@ package com.hw.spring_hw_ap.service;
 
 import com.hw.spring_hw_ap.dto.CarDto;
 import com.hw.spring_hw_ap.mapper.CarMapper;
-import com.hw.spring_hw_ap.models.Car;
-import com.hw.spring_hw_ap.models.Owner;
+import com.hw.spring_hw_ap.entity.Car;
+import com.hw.spring_hw_ap.entity.User;
 import com.hw.spring_hw_ap.repository.CarRepository;
-import com.hw.spring_hw_ap.repository.OwnerRepository;
+import com.hw.spring_hw_ap.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final OwnerRepository ownerRepository;
+    private final UserRepository ownerRepository;
     private final JavaMailSender mailSender; // Добавлено для отправки почты
 
     public List<CarDto> findByEnginePowerBetween(int minEnginePower, int maxEnginePower) {
@@ -44,7 +44,7 @@ public class CarService {
     }
 
     public CarDto save(CarDto carDto) {
-        Optional<Owner> ownerOpt = ownerRepository.findByUsername(carDto.getOwnerUsername());
+        Optional<User> ownerOpt = ownerRepository.findByUsername(carDto.getOwnerUsername());
         if (ownerOpt.isEmpty()) {
             throw new RuntimeException("Owner not found");
         }
@@ -61,7 +61,7 @@ public class CarService {
     // Добавлено: Отправка письма владельцам авто с истекшим сроком обслуживания
     public void sendMaintenanceReminder() {
         List<Car> cars = carRepository.findAll();
-        Map<Owner, List<Car>> carsByOwner = new HashMap<>();
+        Map<User, List<Car>> carsByOwner = new HashMap<>();
 
         for (Car car : cars) {
             if (car.getLastMaintenanceTimestamp() != null && car.getLastMaintenanceTimestamp().isBefore(LocalDateTime.now().minusYears(1))) {
@@ -69,8 +69,8 @@ public class CarService {
             }
         }
 
-        for (Map.Entry<Owner, List<Car>> entry : carsByOwner.entrySet()) {
-            Owner owner = entry.getKey();
+        for (Map.Entry<User, List<Car>> entry : carsByOwner.entrySet()) {
+            User user = entry.getKey();
             List<Car> overdueCars = entry.getValue();
 
             String emailBody = "The following cars require maintenance:\n";
@@ -78,7 +78,7 @@ public class CarService {
                 emailBody += "- " + car.getModel() + " (Last maintenance: " + car.getLastMaintenanceTimestamp() + ")\n";
             }
 
-            sendEmail(owner.getEmail(), "Maintenance Reminder", emailBody);
+            sendEmail(user.getEmail(), "Maintenance Reminder", emailBody);
         }
     }
 

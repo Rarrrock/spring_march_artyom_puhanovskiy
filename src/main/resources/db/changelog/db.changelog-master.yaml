@@ -29,3 +29,18 @@ databaseChangeLog:
               - column:
                   name: torque
                   type: INT
+  - changeSet:
+      id: 3
+      author: Rarrrock
+      changes:
+        - delete:
+            tableName: car
+        - delete:
+            tableName: owner
+  - changeSet:
+      id: 4
+      author: Rarrrock
+      changes:
+        - renameTable:
+            oldTableName: owner
+            newTableName: user

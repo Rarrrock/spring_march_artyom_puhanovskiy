@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.models;
+package com.hw.spring_hw_ap.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -15,4 +15,5 @@ public class Maintenance {
     private String description;
     private double price;
 }
+
 

@@ -1,6 +1,6 @@
 package com.hw.spring_hw_ap.service;
 
-import com.hw.spring_hw_ap.models.Maintenance;
+import com.hw.spring_hw_ap.entity.Maintenance;
 import com.hw.spring_hw_ap.repository.MaintenanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

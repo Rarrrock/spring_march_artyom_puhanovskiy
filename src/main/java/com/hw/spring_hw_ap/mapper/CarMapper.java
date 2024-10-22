@@ -1,7 +1,7 @@
 package com.hw.spring_hw_ap.mapper;
 
 import com.hw.spring_hw_ap.dto.CarDto;
-import com.hw.spring_hw_ap.models.Car;
+import com.hw.spring_hw_ap.entity.Car;
 
 public class CarMapper {
 

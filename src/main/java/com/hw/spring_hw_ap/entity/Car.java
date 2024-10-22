@@ -1,4 +1,4 @@
-package com.hw.spring_hw_ap.models;
+package com.hw.spring_hw_ap.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,9 +30,8 @@ public class Car {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private Owner owner;
+    private User owner;
 
-    // Новое поле
     @Column(name = "last_maintenance_timestamp")
     private LocalDateTime lastMaintenanceTimestamp;
 }
