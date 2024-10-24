@@ -13,8 +13,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    #      ОБЯЗАТЕЛЬНО прописывай "ddl-auto: update",
-    #      ЕСЛИ не хочешь создавать таблицы вручную в MYsql
     show-sql: true
     properties:
       hibernate:
@@ -26,6 +24,12 @@ spring:
     mongodb:
       uri: mongodb+srv://root:rootroot@cluster0.wy5rblw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: products-db
+
+  security:
+    jwt:
+      secret: mySecretKey
+      expirationMs: 3600000  # 1 час
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -38,32 +42,7 @@ spring:
           starttls:
             enable: true
 
-#ref-data:
-#  engine-types:
-#    - Бензиновий
-#    - Дизельний
-#    - Гібридний
-#
-#  fuel-types:
-#    бензин:
-#      - А-95
-#      - А-98
-#      - А-100
-#    дизель:
-#      - зимовий
-#      - літній
-#      - арктичний
-#    електрика: []
-
-#    datasource:
-#      url: "jdbc:postgresql://localhost:5432/XXX"
-#      username: "postgres"
-#      password: "postgres"
-#    jpa:
-#      show-sql: true
-#      hibernate:
-#        ddl-auto: update
-#        format-sql: true
-#      properties:
-#          hibernate:
-#              format_sql: true
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG

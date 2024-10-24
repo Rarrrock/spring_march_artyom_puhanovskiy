@@ -1,5 +1,6 @@
 package com.hw.spring_hw_ap.controller;
 
+import com.hw.spring_hw_ap.dto.LoginRequest;
 import com.hw.spring_hw_ap.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,10 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,11 +24,12 @@ public class AuthController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/login")
-    public String authenticateUser(@RequestParam String username, @RequestParam String password) {
+    public String authenticateUser(@RequestBody LoginRequest loginRequest) {
+        System.out.println("Получен запрос на авторизацию: " + loginRequest.getUsername());
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         return jwtUtils.generateToken(userDetails.getUsername());
     }
 }

@@ -11,7 +11,7 @@ public class MaintenanceReminderScheduler {
 
     private final CarService carService;
 
-    @Scheduled(cron = "*/10 * * * * ?") // Запуск каждые 10 секунд
+    @Scheduled(cron = "0 0 * * * ?") // "*/10 * * * * ?" - Запуск каждые 10 секунд
     public void sendReminders() {
         System.out.println("Scheduler triggered: sending maintenance reminders...");
         carService.sendMaintenanceReminder();

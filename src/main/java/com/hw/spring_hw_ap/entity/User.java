@@ -11,6 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "users")  // Явно указываем таблицу
 public class User {
 
     @Id
@@ -25,6 +26,9 @@ public class User {
 
     @Column(nullable = false) // Добавляем поле для хранения пароля
     private String password;
+
+    @Column(nullable = false)
+    private String role;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Car> cars;

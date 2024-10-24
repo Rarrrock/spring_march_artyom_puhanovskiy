@@ -45,13 +45,14 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public CarDto updateCar(@PathVariable Long id, @RequestBody CarDto carDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
 
         CarDto existingCar = carService.findById(id);
         if (!existingCar.getOwnerUsername().equals(currentUsername) && !authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                .anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
             throw new RuntimeException("Access denied");
         }
 
@@ -60,13 +61,14 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public void deleteCar(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
 
         CarDto existingCar = carService.findById(id);
         if (!existingCar.getOwnerUsername().equals(currentUsername) && !authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                .anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
             throw new RuntimeException("Access denied");
         }
 

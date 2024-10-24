@@ -20,9 +20,10 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final UserRepository ownerRepository;
-    private final JavaMailSender mailSender; // Добавлено для отправки почты
+    private final UserRepository userRepository;
+    private final JavaMailSender mailSender;
 
+    // Поиск машин по диапазону мощности двигателя
     public List<CarDto> findByEnginePowerBetween(int minEnginePower, int maxEnginePower) {
         return carRepository.findByEnginePowerBetween(minEnginePower, maxEnginePower)
                 .stream()
@@ -30,6 +31,7 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
+    // Поиск всех машин
     public List<CarDto> findAll() {
         return carRepository.findAll()
                 .stream()
@@ -37,34 +39,40 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
+    // Поиск машины по ID
     public CarDto findById(Long id) {
         return carRepository.findById(id)
                 .map(CarMapper::toDto)
                 .orElseThrow();
     }
 
+    // Сохранение машины
     public CarDto save(CarDto carDto) {
-        Optional<User> ownerOpt = ownerRepository.findByUsername(carDto.getOwnerUsername());
+        // Ищем владельца по имени пользователя
+        Optional<User> ownerOpt = userRepository.findByUsername(carDto.getOwnerUsername());
         if (ownerOpt.isEmpty()) {
             throw new RuntimeException("Owner not found");
         }
 
-        Car car = CarMapper.toEntity(carDto);
+        // Преобразуем DTO в сущность, передаем userRepository для корректного сопоставления владельца
+        Car car = CarMapper.toEntity(carDto, userRepository);
         car.setOwner(ownerOpt.get());
         return CarMapper.toDto(carRepository.save(car));
     }
 
+    // Удаление машины по ID
     public void deleteById(Long id) {
         carRepository.deleteById(id);
     }
 
-    // Добавлено: Отправка письма владельцам авто с истекшим сроком обслуживания
+    // Отправка уведомлений владельцам, чьи машины нуждаются в обслуживании
     public void sendMaintenanceReminder() {
         List<Car> cars = carRepository.findAll();
         Map<User, List<Car>> carsByOwner = new HashMap<>();
 
         for (Car car : cars) {
-            if (car.getLastMaintenanceTimestamp() != null && car.getLastMaintenanceTimestamp().isBefore(LocalDateTime.now().minusYears(1))) {
+            if (car.getLastMaintenanceTimestamp() != null &&
+                    car.getLastMaintenanceTimestamp().isBefore(LocalDateTime.now().minusYears(1))) {
                 carsByOwner.computeIfAbsent(car.getOwner(), owner -> new ArrayList<>()).add(car);
             }
         }
@@ -82,6 +90,7 @@ public class CarService {
         }
     }
 
+    // Метод для отправки email
     private void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);

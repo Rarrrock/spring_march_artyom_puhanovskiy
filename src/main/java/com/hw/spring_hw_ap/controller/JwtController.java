@@ -22,7 +22,7 @@ public class JwtController {
     // Эндпоинт для проверки токена
     @GetMapping("/validateToken")
     public String validateToken(@RequestHeader("Authorization") String token) {
-        String jwt = token.substring(7);  // Убираем "Bearer " из начала токена
+        String jwt = token.substring(7);
         if (jwtUtils.validateToken(jwt)) {
             return "Valid token for user: " + jwtUtils.getUsernameFromToken(jwt);
         } else {

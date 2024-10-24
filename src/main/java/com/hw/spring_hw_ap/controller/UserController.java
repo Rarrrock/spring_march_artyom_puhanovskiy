@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/owners")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -49,7 +49,7 @@ public class UserController {
             User owner = existingOwner.get();
 
             if (!currentUsername.equals(owner.getUsername()) && !authentication.getAuthorities().stream()
-                    .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                    .anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }
 
@@ -71,7 +71,7 @@ public class UserController {
             User owner = existingOwner.get();
 
             if (!currentUsername.equals(owner.getUsername()) && !authentication.getAuthorities().stream()
-                    .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+                    .anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }
 

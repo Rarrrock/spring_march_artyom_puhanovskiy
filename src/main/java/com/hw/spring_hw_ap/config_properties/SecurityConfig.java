@@ -32,13 +32,19 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Отключаем CSRF
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/generateToken/**").permitAll() // Доступ для авторизации и генерации токена
-                        .requestMatchers("/owners/**", "/cars/**").hasAnyRole("USER", "ADMIN") // Доступ для ролей USER и ADMIN
+                        .requestMatchers("/users/**", "/cars/**").hasAnyRole("USER", "ADMIN") // Доступ для ролей USER и ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Доступ только для администратора
                         .anyRequest().authenticated() // Остальные запросы требуют аутентификации
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT — Stateless
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Добавляем JWT фильтр
-
+//
+//        http
+//                .csrf(csrf -> csrf.disable())  // Отключаем CSRF
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/auth/**").permitAll()  // Разрешаем доступ ко всем маршрутам auth без аутентификации
+//                        .anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
+//                );
         return http.build();
     }
 

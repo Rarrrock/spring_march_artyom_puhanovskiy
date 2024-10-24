@@ -1,10 +1,57 @@
+# было много ошибок, пересобрал Changelog заново
 databaseChangeLog:
   - changeSet:
       id: 1
       author: Rarrrock
       changes:
+        - dropTable:
+            tableName: cars
+            cascadeConstraints: true
+        - dropTable:
+            tableName: users
+            cascadeConstraints: true
+  - changeSet:
+      id: 2
+      author: Rarrrock
+      changes:
         - createTable:
-            tableName: car
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 3
+      author: Rarrrock
+      changes:
+        - createTable:
+            tableName: cars
             columns:
               - column:
                   name: id
@@ -16,31 +63,28 @@ databaseChangeLog:
               - column:
                   name: model
                   type: VARCHAR(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: engine_power
                   type: INT
-  - changeSet:
-      id: 2
-      author: Rarrrock
-      changes:
-        - addColumn:
-            tableName: car
-            columns:
+                  constraints:
+                    nullable: false
               - column:
                   name: torque
                   type: INT
-  - changeSet:
-      id: 3
-      author: Rarrrock
-      changes:
-        - delete:
-            tableName: car
-        - delete:
-            tableName: owner
-  - changeSet:
-      id: 4
-      author: Rarrrock
-      changes:
-        - renameTable:
-            oldTableName: owner
-            newTableName: user
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_id
+                  type: BIGINT
+              - column:
+                  name: last_maintenance_timestamp
+                  type: TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: cars
+            baseColumnNames: owner_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL
+            constraintName: fk_car_user

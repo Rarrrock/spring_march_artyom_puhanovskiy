@@ -16,4 +16,3 @@ public class Maintenance {
     private double price;
 }
 
-

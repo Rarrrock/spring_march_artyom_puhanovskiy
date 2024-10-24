@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "cars")  // Явно указываем таблицу
 public class Car {
 
     @Id
